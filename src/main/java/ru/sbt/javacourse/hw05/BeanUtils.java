@@ -8,5 +8,8 @@ public class BeanUtils {
         Method[] methodsFrom = from.getClass().getMethods();
         Method[] methodsTo = to.getClass().getMethods();
 
+        for (Method method : methodsFrom) {
+
+        }
     }
 }
