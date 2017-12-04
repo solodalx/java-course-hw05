@@ -3,16 +3,17 @@ package ru.sbt.javacourse.hw05;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class BeanUtilsTest {
     @Test
     public void test01_assign() throws Exception {
         String from = "Hello world";
-        String to = "";
+        String to = "Empty";
 
         BeanUtils.assign(to, from);
 
-//        assertEquals("Hello world", to);
+        assertEquals("Empty", to);
     }
 
     @Test
@@ -61,14 +62,71 @@ public class BeanUtilsTest {
 //        assertEquals(25, b.getAge());
 //    }
 
-//    @Test
-//    public void test06_setterWithSuperClass() throws Exception {
-//        FullNamePerson a = new FullNamePerson("John", "Lee", 25);
-//        Person b = new Person();
-//
-//        BeanUtils.assign(b, a);
-//
-//        assertEquals("Alex", b.getName());
-//        assertEquals(37, b.getAge());
-//    }
+    @Test
+    public void test06_setterWithSuperClass() throws Exception {
+        Employee employee = new Employee("Nick", 50, "Comp", 100);
+        Person person = new Person();
+
+        B from = new B(employee);
+        A to = new A();
+
+        BeanUtils.assign(to, from);
+
+        assertEquals("Nick", to.getPerson().getName());
+        assertEquals(50, to.getPerson().getAge());
+    }
+
+    @Test
+    public void test07_setterWithChildClass() throws Exception {
+        Person person = new Person("Nick", 50);
+        Employee employee = new Employee();
+
+        A from = new A(person);
+        B to = new B();
+
+        BeanUtils.assign(to, from);
+
+        assertNull(to.getPerson());
+    }
+}
+
+
+class A {
+    Person person;
+
+    public A() {
+        this.person = null;
+    }
+
+    public A(Person person) {
+        this.person = person;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+}
+
+class B {
+    Employee employee;
+
+    public B() {
+        this.employee = null;
+    }
+
+    public B(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Employee getPerson() {
+        return employee;
+    }
+
+    public void setPerson(Employee employee) {
+        this.employee = employee;
+    }
 }
