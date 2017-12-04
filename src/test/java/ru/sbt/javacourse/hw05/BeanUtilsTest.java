@@ -65,13 +65,10 @@ public class BeanUtilsTest {
     @Test
     public void test06_setterWithSuperClass() throws Exception {
         Employee employee = new Employee("Nick", 50, "Comp", 100);
-        Person person = new Person();
-
         B from = new B(employee);
         A to = new A();
 
         BeanUtils.assign(to, from);
-
         assertEquals("Nick", to.getPerson().getName());
         assertEquals(50, to.getPerson().getAge());
     }
@@ -79,20 +76,17 @@ public class BeanUtilsTest {
     @Test
     public void test07_setterWithChildClass() throws Exception {
         Person person = new Person("Nick", 50);
-        Employee employee = new Employee();
-
         A from = new A(person);
         B to = new B();
 
         BeanUtils.assign(to, from);
-
         assertNull(to.getPerson());
     }
 }
 
 
 class A {
-    Person person;
+    private Person person;
 
     public A() {
         this.person = null;
@@ -112,7 +106,7 @@ class A {
 }
 
 class B {
-    Employee employee;
+    private Employee employee;
 
     public B() {
         this.employee = null;

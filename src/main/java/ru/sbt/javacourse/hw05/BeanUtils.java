@@ -11,7 +11,7 @@ public class BeanUtils {
         Method[] methodsFrom = from.getClass().getMethods();
         Method[] methodsTo = to.getClass().getMethods();
 
-        Map<String, Method> getters = new HashMap<String, Method>();
+        Map<String, Method> getters = new HashMap<>();
         String name;
 
         for (Method method : methodsFrom) {
